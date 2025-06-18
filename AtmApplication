@@ -1,0 +1,81 @@
+import java.util.Scanner;
+class Customer{
+    String name;
+    int cid;
+    int accno;
+    String branch;
+    String bank;
+    int inibal=0;
+    int mypin=9959;
+	
+    public Customer(String name,int cid,int accno,String branch,String bank){
+    this.name=name;
+    this.cid=cid;
+    this.accno=accno;
+    this.branch=branch;
+    this.bank=bank;
+}
+public void display(){
+    System.out.println("Name is:"+this.name);
+    System.out.println("cid is:"+this.cid);
+    System.out.println("accno is:"+this.accno);
+    System.out.println("branch is:"+this.branch);
+    System.out.println("bank is:"+this.bank);
+}
+public void deposit(int amount){
+    if(amount>0){
+        inibal+=amount;
+    System.out.println("Deposit successfully");
+	}else{
+		System.out.println("invalid");
+	}
+}
+public void withdraw(int pin,int amount){
+    if(pin==mypin && amount<=inibal){
+        inibal-=amount;
+        System.out.println("donr successfully");
+    }else{
+        System.out.println("insufficient balance");
+    }
+}
+public void checkBalance(int pin){
+    if(pin==mypin){
+        System.out.println("balance is:"+inibal);
+    }else{
+        System.out.println("sorry incorrect pin");
+    }
+}
+Scanner sc=new Scanner(System.in);
+public void changepin(int pin){
+    if(pin==mypin){
+        System.out.println("enter your new pin:");
+        int newpin=sc.nextInt();
+        mypin=newpin;
+        System.out.println("pin changed successfully"+mypin);
+		}else{
+		System.out.println("incorrect pin");
+		}
+	}
+}
+class AtmApp{
+    public static void main(String args[]){
+       Scanner sc=new Scanner(System.in);
+       System.out.println("enter your name");
+       String name=sc.nextLine();
+       System.out.println("enter your branch");
+       String branch=sc.nextLine();
+       System.out.println("enter your bank");
+       String bank=sc.nextLine();
+       System.out.println("enter your cid");
+       int cid=sc.nextInt();
+       System.out.println("enter your accno");
+       int accno=sc.nextInt();
+       Customer c1=new Customer(name,cid,accno,branch,bank);
+       c1.display();
+       c1.deposit(50000);
+       c1.withdraw(9959,25000);
+       c1.checkBalance(9959);
+       c1.changepin(9959);
+       c1.checkBalance(6305);
+    }
+}
